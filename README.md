@@ -7,7 +7,7 @@ This gem provides a dead simple way to authenticate to Bigcommerce using OmniAut
 
 Add this line to your application's Gemfile:
 
-```
+```ruby
 gem 'omniauth-bigcommerce'
 ```
 
@@ -15,7 +15,7 @@ gem 'omniauth-bigcommerce'
 
 First, you will need to [register an application](https://developers.bigcommerceapp.com).
 
-```
+```ruby
 use OmniAuth::Builder do
 provider :bigcommerce, ENV['your_client_id'], ENV['your_client_secret'], 'list_of_scopes, api_v2_all'
 end
