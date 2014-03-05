@@ -3,17 +3,17 @@ require 'omniauth-oauth2'
 module OmniAuth
   module Strategies
     class Bigcommerce < OmniAuth::Strategies::OAuth2
-      option :name, "bigcommerce"
+      option :name, 'bigcommerce'
 
       option :provider_ignores_state, true
 
-      option :scope, "NullScope" # Default to empty scope.
+      option :scope, '' # Default to empty scope.
 
       # This is where you pass the options you would pass when
       # initializing your consumer from the OAuth gem.
       option :client_options,
       {
-        site: ENV['BC_AUTH_SERVICE'],
+        site: 'https://login.bigcommerce.com',
         authorize_url: '/oauth2/authorize',
         token_url: '/oauth2/token'
         # TODO: Replace with final service at bigcommerceapp.com
@@ -24,7 +24,7 @@ module OmniAuth
       # additional calls (if the user id is returned with the token
       # or as a URI parameter). This may not be possible with all
       # providers.
-      uid{ access_token.params['user']['id'] }
+      uid { access_token.params['user']['id'].to_s }
 
       info do
         {
@@ -35,7 +35,9 @@ module OmniAuth
 
       credentials do
         {
-          :token => access_token
+          token: access_token.token,
+          refresh_token: access_token.refresh_token,
+          expires_at: access_token.expires_at
         }
       end
 
